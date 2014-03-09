@@ -133,7 +133,7 @@ public class Time {
   @Override
   public String toString() {
     StringBuilder returner = new StringBuilder();
-    returner.append(hours)
+    returner.append(hours);
     return returner.toString();
   }
     //</editor-fold>
