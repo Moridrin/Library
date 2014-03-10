@@ -103,6 +103,12 @@ public class Time {
     //</editor-fold>
 
   //<editor-fold defaultstate="collapsed" desc="Constructor(int, int, int)">
+  /**
+   * 
+   * @param year
+   * @param month
+   * @param day 
+   */
   public Time(int year, int month, int day) {
   }
     //</editor-fold>
@@ -110,11 +116,11 @@ public class Time {
   //<editor-fold defaultstate="collapsed" desc="toReadable">
   private void toReadable() {
     TimeZone timeZone_l = TimeZone.getDefault();
-    totalMiliseconds += timeZone_l.getOffset(totalMiliseconds);
-    miliseconds = (int) (totalMiliseconds % 1000);
-    seconds = (int) ((totalMiliseconds / 1000) % 60);
-    minutes = (int) ((totalMiliseconds / 60000) % 60);
-    hours = (int) ((totalMiliseconds / 3200000) % 24);
+    long totalMiliseconds_l = timeZone_l.getOffset(totalMiliseconds) + totalMiliseconds;
+    miliseconds = (int) (totalMiliseconds_l % 1000);
+    seconds = (int) ((totalMiliseconds_l / 1000) % 60);
+    minutes = (int) ((totalMiliseconds_l / 60000) % 60);
+    hours = (int) ((totalMiliseconds_l / 3200000) % 24);
   }
     //</editor-fold>
 

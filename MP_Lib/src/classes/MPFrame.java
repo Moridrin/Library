@@ -5,7 +5,7 @@
  */
 package classes;
 
-import interfaces.*;
+import interfaces.SuperClass;
 
 /**
  *
@@ -13,7 +13,7 @@ import interfaces.*;
  */
 public class MPFrame extends javax.swing.JFrame {
 
-    private SuperClass superClass;
+    private final SuperClass superClass;
 
     public MPFrame(SuperClass superClass) {
         this.superClass = superClass;
