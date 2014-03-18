@@ -1,5 +1,6 @@
 package mp_gui_lib;
 
+import javafx.scene.image.ImageView;
 /**
  *
  * @author J.B.A.J. Berkvens
@@ -32,6 +33,12 @@ public enum DialogImage {
                 returner = "";
                 break;
         }
+        return returner;
+    }
+
+    public ImageView getImage() {
+        ImageView returner = null;
+        returner = new ImageView(this.toString());
         return returner;
     }
 }

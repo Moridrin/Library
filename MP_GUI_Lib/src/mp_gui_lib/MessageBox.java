@@ -38,17 +38,17 @@ public class MessageBox {
      *
      * @param message is the message you want to show.
      * @param title   is the title of the message.
-     * @param image   is the dialog image that will be displayed on the left.
+     * @param dialogImage   is the dialog image that will be displayed on the left.
      */
-    public static void show(String message, String title, DialogImage image) {
+    public static void show(String message, String title, DialogImage dialogImage) {
         BorderPane borderPane = new BorderPane();
 
         Label labelMessage = new Label(message);
         borderPane.setCenter(labelMessage);
 
-        if (image != DialogImage.None) {
+        if (dialogImage != DialogImage.None) {
             StackPane stackPane = new StackPane();
-            ImageView imageView = new ImageView(image.toString());
+            ImageView imageView = dialogImage.getImage();
             stackPane.getChildren().add(imageView);
             borderPane.setLeft(stackPane);
         }
