@@ -87,7 +87,7 @@ public class Date {
      * This constructor creates a Date component with the current Date.
      */
     public Date() {
-        throw new UnsupportedOperationException();
+        day = 18;
     }
 	//</editor-fold>
 
