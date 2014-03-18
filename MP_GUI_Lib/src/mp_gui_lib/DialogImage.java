@@ -1,6 +1,7 @@
 package mp_gui_lib;
 
 import javafx.scene.image.ImageView;
+
 /**
  *
  * @author J.B.A.J. Berkvens
@@ -39,6 +40,22 @@ public enum DialogImage {
     public ImageView getImage() {
         ImageView returner = null;
         returner = new ImageView(this.toString());
+        return returner;
+    }
+
+    public DialogButtons getDefaultButtons() {
+        DialogButtons returner = DialogButtons.None;
+        switch (this) {
+            case Question:
+                returner = DialogButtons.YesNo;
+                break;
+            case None:
+                returner = DialogButtons.None;
+                break;
+            default:
+                returner = DialogButtons.OK;
+                break;
+        }
         return returner;
     }
 }
