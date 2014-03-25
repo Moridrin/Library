@@ -11,14 +11,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 //</editor-fold>
+
 /**
  *
  * @author J.B.A.J. Berkvens
  */
-public class MessageBox implements SuperClass{
+public class MessageBox implements SuperClass {
 
     private static Stage primaryStage;
-    
+
     //<editor-fold defaultstate="collapsed" desc="Show">
     /**
      * This operation shows a MessageBox.
@@ -77,8 +78,9 @@ public class MessageBox implements SuperClass{
     /**
      * This operation shows a MessageBox.
      *
-     * @param message is the message you want to show.
-     * @param title   is the title of the message.
+     * @param message     is the message you want to show.
+     * @param title       is the title of the message.
+     * @param dialogImage is the image that will be shown on the left.
      */
     public static void show(String message, String title, DialogImage dialogImage) {
         show(message, title, dialogImage, dialogImage.getDefaultButtons());
@@ -172,15 +174,15 @@ public class MessageBox implements SuperClass{
     //<editor-fold defaultstate="collapsed" desc="Preform Action">
     @Override
     public void preformAction(String action, Object[] args) {
-        switch (action){
+        switch (action) {
             case "closeMessage":
                 primaryStage.close();
                 break;
         }
     }
     //</editor-fold>
-    
-    public static void close(){
+
+    public static void close() {
         primaryStage.close();
     }
 }
