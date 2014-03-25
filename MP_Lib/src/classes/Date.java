@@ -131,7 +131,7 @@ public final class Date {
 
     //<editor-fold defaultstate="collapsed" desc="Constructor(dateString)">
     /**
-     * This constructor uses the given String to create a custom date.
+     * This constructor creates a Date component according to the string provided.
      *
      * @param dateString for formatting see: http://Moridrin.com/java/mp_lib/date/default_formatting
      *
@@ -162,16 +162,13 @@ public final class Date {
     /**
      * This constructor uses the given parameters to create a custom date.
      *
-     * @param year The year eg 2014.
+     * @param day The day of the month (1-31).
+     *
+     * @throws exceptions.UnknownLargeValue if the day is outside bounds.
+     * @throws exceptions.UnknownSmallValue if the day is outside bounds.
      */
-    public Date(int year) {
-        try {
-            this.setYear(year);
-            this.setMonth(1);
-            this.setDay(1);
-        } catch (UnknownSmallValue | UnknownLargeValue ex) {
-            //The code will never break here (the manual set variables are not outside range).
-        }
+    public Date(int day) throws UnknownLargeValue, UnknownSmallValue {
+        this(day, 1);
     }
     //</editor-fold>
 
@@ -179,14 +176,14 @@ public final class Date {
     /**
      * This constructor uses the given parameters to create a custom date.
      *
-     * @param year  The year eg 2014.
+     * @param day   The day of the month (1-31).
      * @param month The month of the year (1-12).
      *
-     * @throws exceptions.UnknownLargeValue if the month is outside bounds.
-     * @throws exceptions.UnknownSmallValue if the month is outside bounds.
+     * @throws exceptions.UnknownLargeValue if ether the day or the month is outside bounds.
+     * @throws exceptions.UnknownSmallValue if ether the day or the month is outside bounds.
      */
-    public Date(int year, int month) throws UnknownLargeValue, UnknownSmallValue {
-        this(year, month, 1);
+    public Date(int day, int month) throws UnknownLargeValue, UnknownSmallValue {
+        this(day, month, 1970);
     }
     //</editor-fold>
 
@@ -194,24 +191,24 @@ public final class Date {
     /**
      * This constructor uses the given parameters to create a custom date.
      *
-     * @param year  The year eg 2014.
-     * @param month The month of the year (1-12).
      * @param day   The day of the month (1-31).
+     * @param month The month of the year (1-12).
+     * @param year  The year eg 2014.
      *
      * @throws exceptions.UnknownLargeValue if ether the day or the month is outside bounds.
      * @throws exceptions.UnknownSmallValue if ether the day or the month is outside bounds.
      */
-    public Date(int year, int month, int day) throws UnknownLargeValue, UnknownSmallValue {
-        this.setYear(year);
-        this.setMonth(month);
+    public Date(int day, int month, int year) throws UnknownLargeValue, UnknownSmallValue {
         this.setDay(day);
+        this.setMonth(month);
+        this.setYear(year);
         toExact();
     }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="toExact()">
     /**
-     * This operation converts the values of the Years, Months, and Days to the exact amount of milliseconds since 1970.
+     * This operation sets the totalMilliseconds according to the current variables.
      */
     private void toExact() {
         totalMilliseconds = yearToExact();
@@ -250,7 +247,7 @@ public final class Date {
 
     //<editor-fold defaultstate="collapsed" desc="toReadable()">
     /**
-     * This operation converts the exact amount of milliseconds since 1970 to the Years, Months, and Days.
+     * This operation sets the local variables according to the totalMilliseconds.
      */
     private void toReadable() {
         yearToReadable();
@@ -297,6 +294,13 @@ public final class Date {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="isLeapYear(year)">
+    /**
+     * This operation checks if the given year is a leap-year.
+     *
+     * @param year the year that will be tested.
+     *
+     * @return true if the given year is indeed a leap-year.
+     */
     private boolean isLeapYear(int year) {
         return (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
     }
@@ -304,7 +308,7 @@ public final class Date {
 
     //<editor-fold defaultstate="collapsed" desc="isBefore(date)">
     /**
-     * This operation tests to see if this date is before the given date
+     * This operation tests to see if this date is before the given date.
      *
      * @param date is the date that is being tested.
      *

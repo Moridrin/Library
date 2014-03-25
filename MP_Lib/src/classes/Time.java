@@ -11,15 +11,15 @@ import java.util.TimeZone;
  * @author J.B.A.J. Berkvens
  * @time 2014/03/19
  */
-public class Time {
+public final class Time {
 
     //<editor-fold defaultstate="collapsed" desc="Declaraions">
-    long totalMilliseconds;      // The milliseconds since January 1, 1970, 00:00:00 GMT.
-    int hoursTranslation;       // The amount of hours different from GMT (Amsterdam = 1);
-    int hours;
-    int minutes;
-    int seconds;
-    int milliseconds;
+    private long totalMilliseconds;     // The milliseconds since January 1, 1970, 00:00:00 GMT.
+    private int hoursTranslation;       // The amount of hours different from GMT (Amsterdam = 1);
+    private int hours;
+    private int minutes;
+    private int seconds;
+    private int milliseconds;
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
@@ -72,7 +72,7 @@ public class Time {
     //<editor-fold desc="Operations">
     //<editor-fold defaultstate="collapsed" desc="Constructor()">
     /**
-     * This constructor creates a Time component with the current time.
+     * This is the constructor for Time. In here the Time will be set to the current time.
      */
     public Time() {
         this.totalMilliseconds = System.currentTimeMillis();
@@ -88,26 +88,38 @@ public class Time {
      */
     public Time(String timeString) {
         String[] timeParts = timeString.split(":");
-        this.hours = Integer.parseInt(timeParts[0]);
-        this.minutes = Integer.parseInt(timeParts[1]);
+        this.setHours(Integer.parseInt(timeParts[0]));
+        this.setMinutes(Integer.parseInt(timeParts[1]));
         if (timeParts.length >= 3) {
-            this.seconds = Integer.parseInt(timeParts[2]);
+            this.setSeconds(Integer.parseInt(timeParts[2]));
             if (timeString.length() == 4) {
-                this.milliseconds = Integer.parseInt(timeParts[3]);
+                this.setMiliseconds(Integer.parseInt(timeParts[3]));
             } else {
-                this.seconds = 0;
+                this.setSeconds(0);
             }
         } else {
-            this.seconds = 0;
+            this.setSeconds(0);
         }
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Constructor(hours)">
+    /**
+     * This constructor uses the given parameters to create a custom time.
+     *
+     * @param hours is the amount of hours spent of this day (0-23).
+     */
+    public Time(int hours) {
+        this(hours, 1);
     }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Constructor(hours, minutes)">
     /**
+     * This constructor uses the given parameters to create a custom time.
      *
-     * @param hours
-     * @param minutes
+     * @param hours   is the amount of hours spent of this day (0-23).
+     * @param minutes is the amount of minutes spend in the hour (0-59).
      */
     public Time(int hours, int minutes) {
         this(hours, minutes, 0);
@@ -116,10 +128,11 @@ public class Time {
 
     //<editor-fold defaultstate="collapsed" desc="Constructor(hours, minutes, seconds)">
     /**
+     * This constructor uses the given parameters to create a custom time.
      *
-     * @param hours
-     * @param minutes
-     * @param seconds
+     * @param hours   is the amount of hours spent of this day (0-23).
+     * @param minutes is the amount of minutes spend in the hour (0-59).
+     * @param seconds is the amount of seconds spend in the minute (0-59).
      */
     public Time(int hours, int minutes, int seconds) {
         this(hours, minutes, seconds, 0);
@@ -128,11 +141,12 @@ public class Time {
 
     //<editor-fold defaultstate="collapsed" desc="Constructor(hours, minutes, seconds, milliseconds)">
     /**
+     * This constructor uses the given parameters to create a custom time.
      *
-     * @param hours
-     * @param minutes
-     * @param seconds
-     * @param milliseconds
+     * @param hours        is the amount of hours spent of this day (0-23).
+     * @param minutes      is the amount of minutes spend in the hour (0-59).
+     * @param seconds      is the amount of seconds spend in the minute (0-59).
+     * @param milliseconds is the amount of milliseconds spend in the minute (0-999).
      */
     public Time(int hours, int minutes, int seconds, int milliseconds) {
         this.hours = hours;
@@ -143,18 +157,10 @@ public class Time {
     }
     //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc="toReadable">
-    private void toReadable() {
-        TimeZone timeZone = TimeZone.getDefault();
-        long tmpTotalMiliseconds = timeZone.getOffset(totalMilliseconds) + totalMilliseconds;
-        milliseconds = (int) (tmpTotalMiliseconds % 1000);
-        seconds = (int) ((tmpTotalMiliseconds / 1000) % 60);
-        minutes = (int) ((tmpTotalMiliseconds / 60000) % 60);
-        hours = (int) ((tmpTotalMiliseconds / 3200000) % 24);
-    }
-    //</editor-fold>
-
     //<editor-fold defaultstate="collapsed" desc="toExact">
+    /**
+     * This operation sets the totalMilliseconds according to the current variables.
+     */
     private void toExact() {
         this.totalMilliseconds = milliseconds;
         this.totalMilliseconds += seconds * 1000;
@@ -162,6 +168,20 @@ public class Time {
         this.totalMilliseconds += hours * 3200000;
         TimeZone timeZone = TimeZone.getDefault();
         totalMilliseconds -= timeZone.getOffset(totalMilliseconds);
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="toReadable">
+    /**
+     * This operation sets the local variables according to the totalMilliseconds.
+     */
+    private void toReadable() {
+        TimeZone timeZone = TimeZone.getDefault();
+        long tmpTotalMiliseconds = timeZone.getOffset(totalMilliseconds) + totalMilliseconds;
+        milliseconds = (int) (tmpTotalMiliseconds % 1000);
+        seconds = (int) ((tmpTotalMiliseconds / 1000) % 60);
+        minutes = (int) ((tmpTotalMiliseconds / 60000) % 60);
+        hours = (int) ((tmpTotalMiliseconds / 3200000) % 24);
     }
     //</editor-fold>
 
