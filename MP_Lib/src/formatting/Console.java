@@ -10,7 +10,9 @@ import java.util.ArrayList;
  */
 public class Console {
 
+    //<editor-fold defaultstate="collapsed" desc="Print Table">
     public static void printTable(ArrayList<String[]> table) {
+        //<editor-fold defaultstate="collapsed" desc="Determin the size of each column">
         int[] largestSizeInColumn = new int[table.get(1).length];
         for (int i = 0; i < table.size(); i++) {
             if (table.get(i) != null) {
@@ -23,6 +25,9 @@ public class Console {
                 }
             }
         }
+        //</editor-fold>
+        
+        //<editor-fold defaultstate="collapsed" desc="Make all Cells fit.">
         for (int i = 0; i < table.size(); i++) {
             if (table.get(i) != null) {
                 String[] row = table.get(i);
@@ -35,6 +40,9 @@ public class Console {
                     row[j] = cell;
                 }
             }
+            //</editor-fold>
+            
+        //<editor-fold defaultstate="collapsed" desc="Add lined rows">
             else{
                 String[] row = new String[table.get(1).length];
                 for (int j = 0; j < row.length; j++) {
@@ -49,11 +57,15 @@ public class Console {
             }
 
         }
+        //</editor-fold>
+        
+        //<editor-fold defaultstate="collapsed" desc="Print Table">
         for (String[] row : table) {
             for (String cell : row) {
                 System.out.print(cell);
             }
             System.out.println(" ");
         }
+        //</editor-fold>
     }
 }

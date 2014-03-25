@@ -6,7 +6,8 @@
 //<editor-fold defaultstate="collapsed" desc="Jibberish">
 package formatting;
 
-import exceptions.*;
+import exceptions.UnknownLargeValue;
+import exceptions.UnknownSmallValue;
 //</editor-fold>
 
 /**
@@ -33,14 +34,14 @@ public class Metric {
          * This operation returns the next enum value.
          *
          * @return the next enum.
-         * @throws UnknownLargeMetricPrefix if there is no known next prefix
+         * @throws UnknownLargeValue if there is no known next prefix
          * (currently Peta is the highest prefix).
          */
-        public MetricPrefix next() throws UnknownLargeMetricPrefix {
+        public MetricPrefix next() throws UnknownLargeValue {
             MetricPrefix prefixes[] = MetricPrefix.values();
             int ordinal = this.ordinal() + 1;
             if (ordinal >= ShortMetricPrefix.values().length) {
-                throw new UnknownLargeMetricPrefix();
+                throw new UnknownLargeValue();
             }
             return prefixes[ordinal];
         }
@@ -51,14 +52,14 @@ public class Metric {
          * This operation returns the previous enum value.
          *
          * @return the previous enum.
-         * @throws UnknownSmallMetricPrefix if there is no known previous prefix
+         * @throws UnknownSmallValue if there is no known previous prefix
          * (currently Kilo is the lowest prefix).
          */
-        public MetricPrefix previous() throws UnknownSmallMetricPrefix {
+        public MetricPrefix previous() throws UnknownSmallValue {
             MetricPrefix prefixes[] = MetricPrefix.values();
             int ordinal = this.ordinal() + 1;
             if (ordinal >= ShortMetricPrefix.values().length) {
-                throw new UnknownSmallMetricPrefix();
+                throw new UnknownSmallValue();
             }
             return prefixes[ordinal];
         }
@@ -82,14 +83,14 @@ public class Metric {
          * This operation returns the next enum value.
          *
          * @return the next enum.
-         * @throws UnknownLargeMetricPrefix if there is no known next prefix
+         * @throws UnknownLargeValue if there is no known next prefix
          * (currently Peta is the highest prefix).
          */
-        public ShortMetricPrefix next() throws UnknownLargeMetricPrefix {
+        public ShortMetricPrefix next() throws UnknownLargeValue {
             ShortMetricPrefix prefixes[] = ShortMetricPrefix.values();
             int ordinal = this.ordinal() + 1;
             if (ordinal >= ShortMetricPrefix.values().length) {
-                throw new UnknownLargeMetricPrefix();
+                throw new UnknownLargeValue();
             }
             return prefixes[ordinal];
         }
@@ -100,20 +101,21 @@ public class Metric {
          * This operation returns the previous enum value.
          *
          * @return the previous enum.
-         * @throws UnknownSmallMetricPrefix if there is no known previous prefix
+         * @throws UnknownSmallValue if there is no known previous prefix
          * (currently Kilo is the lowest prefix).
          */
-        public MetricPrefix previous() throws UnknownSmallMetricPrefix {
+        public MetricPrefix previous() throws UnknownSmallValue {
             MetricPrefix prefixes[] = MetricPrefix.values();
             int ordinal = this.ordinal() + 1;
             if (ordinal >= ShortMetricPrefix.values().length) {
-                throw new UnknownSmallMetricPrefix();
+                throw new UnknownSmallValue();
             }
             return prefixes[ordinal];
         }
         //</editor-fold>
         //</editor-fold>
     }
+    //</editor-fold>
     //</editor-fold>
 
     //<editor-fold desc="Operations">
@@ -126,10 +128,10 @@ public class Metric {
      * prefix) it'll give K back.
      * @return a string of the next metric prefix in short notation (example:
      * Kilo = K).
-     * @throws UnknownLargeMetricPrefix if there is no known next prefix
+     * @throws UnknownLargeValue if there is no known next prefix
      * (currently Peta is the highest prefix).
      */
-    public static String nextShortMetricPrefix(String prefixString) throws UnknownLargeMetricPrefix {
+    public static String nextShortMetricPrefix(String prefixString) throws UnknownLargeValue {
         if (prefixString.isEmpty()) {
             return ShortMetricPrefix.K.toString();
         } else {
@@ -148,10 +150,10 @@ public class Metric {
      * not yet a prefix due to having the default (example: Meter doesn't have a
      * prefix) it'll give Kilo back.
      * @return a string of the next metric prefix.
-     * @throws UnknownLargeMetricPrefix if there is no known next prefix
+     * @throws UnknownLargeValue if there is no known next prefix
      * (currently Peta is the highest prefix).
      */
-    public static String nextMetricPrefix(String prefixString) throws UnknownLargeMetricPrefix {
+    public static String nextMetricPrefix(String prefixString) throws UnknownLargeValue {
         if (prefixString.isEmpty()) {
             return MetricPrefix.Kilo.toString();
         } else {

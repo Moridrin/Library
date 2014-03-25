@@ -17,11 +17,11 @@ package exceptions;
  *
  * @author jeroen
  */
-public class UnknownSmallMetricPrefix extends Exception
+public class UnknownLargeValue extends Exception
 {
-      public UnknownSmallMetricPrefix() {}
+      public UnknownLargeValue() {}
 
-      public UnknownSmallMetricPrefix(String message)
+      public UnknownLargeValue(String message)
       {
          super(message);
       }
